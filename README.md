@@ -1,0 +1,222 @@
+# pyDId Package
+
+[![PyPI version](https://badge.fury.io/py/did-api.svg)](https://badge.fury.io/py/did-api)
+
+The `did_api` package provides Python bindings for the D-ID API, allowing you to interact with D-ID's services for creating animations, clips, and talks.
+
+## Installation
+
+You can install the `did_api` package using `pip`:
+
+```bash
+pip install pyDId
+
+```
+
+## Key Features
+
+1. _Simplified Interface_: The _DIdAPIClient_ class abstracts away the complexities of API
+2. _Authentication Handling_: The library handles the authentication process, ensuring that API requests are properly authenticated with the provided API key.
+3. _Endpoint Methods_: The library provides intuitive methods for each API endpoint, making it easy to perform actions such as describing images, retrieving results, upscaling images, generating images based on prompts, and generating seeds for image generation.
+4. _Response Handling_: The library processes API responses and provides them in a structured format, simplifying the integration of API results into the application workflow.
+
+### Overview
+
+Here's an example of how to use the `did_api` package to create a "talks" task and check its status:
+
+```python
+from did_api import DIdAPIClient
+
+# Initialize the DIdAPIClient with your API key and callback URI
+api_key = 'Your-API-Key-Here'
+callback_uri = 'Your-Callback-URI-Here'
+client = DIdAPIClient(api_key, callback_uri)
+
+# Create a "talks" task
+# (Replace source_url, script, and config with your own data)
+source_url = 'https://your-source-audio-url.com'
+script = {
+    "type": "text",
+    "input": "Your text script here",
+    # ...
+}
+config = {
+    "stitch": "true"
+}
+talks_response = client.create_talk(source_url, script, config)
+
+# Check the status of the "talks" task
+# (Replace task_id with the actual task ID from the response)
+
+task_id = talks_response.get('status')
+result_response = client.get_results(task_id, target='talks')
+print("Result Response:", result_response)
+
+```
+
+#### Here is a list of usages for all the methods in the DIdAPIClient class:
+
+`create_talk` Usage:
+
+```python
+client = DIdAPIClient(api_key)
+source_url = "https://example.com/audio.mp3"
+script = {
+    "type": "text",
+    "input": "Your text script here",
+    # ...
+}
+config = {
+    "stitch": "true"
+}
+response = client.create_talk(source_url, script, config)
+
+```
+
+`get_actors` Usage:
+
+```python
+client = DIdAPIClient(api_key)
+response = client.get_actors()
+
+```
+
+`get_present_driver` Usage:
+
+```python
+client = DIdAPIClient(api_key)
+actor_name = "amy"
+response = client.get_present_driver(actor_name)
+
+```
+
+`create_clip` Usage:
+
+```python
+client = DIdAPIClient(api_key)
+source_url = "https://example.com/image.jpg"
+script = {
+    "type": "text",
+    "input": "Your text script here",
+    # ...
+}
+provider = {
+    "type": "microsoft",
+    "voice_id": "en-US-DavisNeural",
+    "voice_config": {
+        "style": "Cheerful"
+    }
+}
+presenter_id = "amy-jcwCkr1grs"
+driver_id = "uM00QMwJ9x"
+background = {
+    "color": "#c9c9c9"
+}
+response = client.create_clip(source_url, script, provider, presenter_id, driver_id, background)
+
+```
+
+`create_animation` Usage:
+
+```python
+client = DIdAPIClient(api_key)
+source_url = "https://example.com/image.jpg"
+driver_url = "bank://classics/driver-feliz-navidad"
+config = {
+    "mute": False
+}
+response = client.create_animation(source_url, driver_url, config)
+
+```
+
+`get_voices` Usage:
+
+```python
+client = DIdAPIClient(api_key)
+response = client.get_voices()
+
+
+```
+
+`upload_image` Usage:
+
+```python
+client = DIdAPIClient(api_key)
+image_file = ("image.jpg", open("image.jpg", "rb"), "image/jpeg")
+response = client.upload_image(image_file)
+
+```
+
+`delete_image` Usage:
+
+```python
+client = DIdAPIClient(api_key)
+image_id = "image_id_here"
+response = client.delete_image(image_id)
+
+```
+
+`upload_audio` Usage:
+
+```python
+client = DIdAPIClient(api_key)
+audio_file_path = "audio.mp3"
+response = client.upload_audio(audio_file_path)
+
+```
+
+`delete_audio` Usage:
+
+```python
+client = DIdAPIClient(api_key)
+audio_id = "audio_id_here"
+response = client.delete_audio(audio_id)
+
+```
+
+`get_credits` Usage:
+
+```python
+client = DIdAPIClient(api_key)
+response = client.get_credits()
+
+```
+
+`upload_logo` Usage:
+
+```python
+client = DIdAPIClient(api_key)
+logo_file_path = "logo.png"
+response = client.upload_logo(logo_file_path)
+
+```
+
+`delete_logo` Usage:
+
+```python
+client = DIdAPIClient(api_key)
+response = client.delete_logo()
+
+```
+
+### Contributing
+
+Contributions are welcome! If you'd like to contribute to this project, please follow the guidelines in CONTRIBUTING.md.
+
+### icense
+
+This project is licensed under the MIT License - see the LICENSE.md file for details.
+
+### Acknowledgments
+
+I would like to express my gratitude to the open-source community for its support and inspiration. This project was built for the love of the community, with the aim of providing a valuable tool for developers and users alike. Your feedback, contributions, and enthusiasm are what drive projects like this one. Together, we can continue to create and share software that benefits everyone.
+
+I also want to extend my appreciation to all the contributors who have helped improve and enhance this package. Your dedication is invaluable, and it makes the open-source ecosystem thrive.
+
+Thank you to the D-ID team for providing an excellent API that inspired this package.
+
+Let's keep building, sharing, and making the world of software better for all.
+
+### Discord Community for Code Ninjas
+
+[Join the community](https://discord.gg/U6K4gMZh)

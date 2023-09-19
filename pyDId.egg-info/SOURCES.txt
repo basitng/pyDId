@@ -1,0 +1,9 @@
+README.md
+setup.py
+pyDId/__init__.py
+pyDId/irequest.py
+pyDId.egg-info/PKG-INFO
+pyDId.egg-info/SOURCES.txt
+pyDId.egg-info/dependency_links.txt
+pyDId.egg-info/requires.txt
+pyDId.egg-info/top_level.txt
